@@ -31,6 +31,7 @@ propgroup presentation {
     property use comment_datetime_format_group;
     property use all_entrysubjects;
     property use all_commentsubjects;
+    property use custom_control_strip_colors;
 }
 
 set layout_type = "two-columns-left";
@@ -45,7 +46,7 @@ set custom_colors_template = "%%new%% .userpic a { background-color: %%backgroun
 
 propgroup colors {
     property use color_page_background;
-    
+
     property Color color_page_title_background { des = "Title background"; }
     property use color_page_title;
     property Color color_header_background { des = "Header background"; }
@@ -85,6 +86,11 @@ propgroup colors {
     property Color color_navigation_background { des = "Page back/forwards background"; }
     property Color color_navigation_text { des = "Page back/forwards text"; }
     property Color color_navigation_border { des = "Page back/forwards border"; }
+
+    property use control_strip_bgcolor;
+    property use control_strip_fgcolor;
+    property use control_strip_bordercolor;
+    property use control_strip_linkcolor;
 }
 
 propgroup images {
@@ -383,8 +389,11 @@ function Page::print_default_stylesheet() {
 
         .entry .userpic a, .comment .userpic a { right: 10px; left: auto; }""";
         }
+
+    print_custom_control_strip_css();
+
 """
-/* believe me, this style is much easier to deal with if you 
+/* believe me, this style is much easier to deal with if you
 just leave this here. It says "let's use the IE box model" for
 non IE browsers */
 * { box-sizing:border-box; -moz-box-sizing:border-box }
@@ -419,7 +428,7 @@ q { font-style: italic;
     position: relative;
     $container_background
 }
- 
+
 #header {
     $page_title_colors
     margin: 0;
@@ -824,7 +833,7 @@ $userpic_css
 
 .entry-management-links, .entry-interaction-links, .comment-management-links, .comment-interaction-links {
     margin: 0;
-    padding: 0; 
+    padding: 0;
     display: inline;
     font-size: .8em;
     text-align: right;
